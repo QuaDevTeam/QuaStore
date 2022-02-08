@@ -1,4 +1,5 @@
 import { QSState, QSGetters, QSMutations, QSActions, QSConstructorOpts } from '../types/base';
+import { getErrorMsg } from '../utils/log';
 import db from './db';
 
 class QuaStore {
@@ -7,13 +8,28 @@ class QuaStore {
   private key: string;
   private mutations: QSMutations;
   private actions: QSActions;
+  private innerGetters: QSGetters;
 
   public constructor(key: string, options: QSConstructorOpts) {
     this.key = key;
+
     this.state = options.state || {};
     this.actions = options.actions || {};
     this.mutations = options.mutations || {};
-    this.getters = options.getters || {};
+    this.innerGetters = options.getters || {};
+
+    const thisKey = this.key;
+    const thisState = this.state;
+    this.getters = new Proxy<QSGetters>(this.innerGetters, {
+      get: async function (target, prop, receiver) {
+        const key = prop as string;
+        const getter = target[key];
+        if (typeof getter !== 'function') {
+          throw new Error(getErrorMsg(`Invalid getter in store [${thisKey}]`));
+        }
+        return await getter(thisState);
+      },
+    });
   }
 
   public commit(key: string, payload?: unknown) {
