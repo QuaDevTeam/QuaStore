@@ -1,22 +1,16 @@
-# ts-lib-boilerplate
+# QuaStore
 
-This is a minimal Typescript library boilerplate, including `eslint` with `eslint-config-alloy` and `prettier`.
+Persistent browser-side state management module.
 
-## How to use
+This package was developed primarily for the needs of QuaEngine, but it also supports the standalone usage.
 
-Run the following commands:
+## Features
 
-```bash
-mkdir YOUR_PROJECT_NAME
-cd ./YOUR_PROJECT_NAME
-git clone -b main --depth 1 https://github.com/backrunner/ts-lib-boilerplate.git .
-rm -rf .git # remove git folder to create your own git repo
-npm install
-```
+- Presistent state management, APIs are inspired by `vuex`.
 
-Then modify the `package.json` and this `Readme.md`.
+- Multi-Slot Continuous Storage.
 
-Do not forget to modify the `LICENSE`.
+- Provide composition APIs for convenience.
 
 ## License
 

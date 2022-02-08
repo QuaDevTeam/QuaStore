@@ -17,6 +17,11 @@
     "build": "rimraf ./dist && tsc --module commonjs && rollup -c rollup.config.ts && rimraf ./dist/lib"
   },
   "author": "BackRunner",
+  "homepage": "https://github.com/QuaDevTeam/QuaStore",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/QuaDevTeam/QuaStore.git"
+  },
   "license": "MIT",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",
