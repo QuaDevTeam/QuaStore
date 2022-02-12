@@ -8,10 +8,18 @@ import pkg from './package.json';
 export default {
   input: `src/main.ts`,
   output: [
-    { file: pkg.main, name: pkg.name, format: 'umd', sourcemap: true },
+    {
+      file: pkg.main,
+      name: pkg.name,
+      format: 'umd',
+      sourcemap: true,
+      globals: {
+        dexie: 'dexie',
+      },
+    },
     { file: pkg.module, format: 'es', sourcemap: true },
   ],
-  external: [],
+  external: ['dexie'],
   watch: {
     include: 'src/**',
   },
