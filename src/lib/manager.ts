@@ -6,6 +6,15 @@ interface ExQSConstructorOpts extends QSConstructorOpts {
   name: string;
 }
 
+export const useStore = (name: string) => {
+  const store = QuaStoreManager.stores[name];
+  if (!store) {
+    console.error(getErrorMsg('No matched store.'));
+    return null;
+  }
+  return store;
+};
+
 class QuaStoreManager {
   public static stores: Record<string, QuaStore> = {};
   public static createStore(opts: ExQSConstructorOpts) {
@@ -15,15 +24,9 @@ class QuaStoreManager {
     }
     QuaStoreManager.stores[name] = new QuaStore(opts.name, opts);
   }
-}
-
-export const useStore = (key: string) => {
-  const store = QuaStoreManager.stores[key];
-  if (!store) {
-    console.error(getErrorMsg('No matched store.'));
-    return null;
+  public static getStore(name: string) {
+    return useStore(name);
   }
-  return store;
-};
+}
 
 export default QuaStoreManager;

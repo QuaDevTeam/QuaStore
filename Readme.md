@@ -12,6 +12,41 @@ This package was developed primarily for the needs of QuaEngine, but it also sup
 
 - Provide composition APIs for convenience.
 
+## Usage
+
+Step 1: Install this package from `npm`.
+
+```bash
+npm i quastore -S
+```
+
+Step 2: Create store.
+
+```js
+QuaStoreManager.createStore({
+  name: 'my-store',
+  state: {
+    value: 0,
+  },
+  mutations: {
+    setValue(state, payload) {
+      state.value = payload;
+    },
+  },
+});
+```
+
+Step 3: Use store at anywhere.
+
+```js
+import { useStore } from 'quastore';
+const store = useStore('my-store');
+// or
+const store = QuaManager.getStore('my-store');
+store.commit('setValue', 1);
+console.log(store.state.value); // 1
+```
+
 ## License
 
 MIT
