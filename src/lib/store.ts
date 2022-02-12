@@ -35,7 +35,7 @@ class QuaStore {
   public commit(key: string, payload?: unknown) {
     const mutation = this.mutations[key];
     if (!mutation) {
-      throw new Error('No matched mutation found.');
+      throw new Error(getErrorMsg('No matched mutation found.'));
     }
     mutation(this.state, payload);
   }
@@ -43,7 +43,7 @@ class QuaStore {
   public async dispatch(key: string, payload?: unknown) {
     const action = this.actions[key];
     if (!action) {
-      throw new Error('No matched action found.');
+      throw new Error(getErrorMsg('No matched action found.'));
     }
     await action(
       {
