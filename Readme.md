@@ -47,6 +47,15 @@ store.commit('setValue', 1);
 console.log(store.state.value); // 1
 ```
 
+If you don't want to use the manager, you can instantiate a standalone store.
+
+```js
+const store = new QuaStore({
+  state: {},
+  mutations: {},
+});
+```
+
 ## License
 
 MIT
