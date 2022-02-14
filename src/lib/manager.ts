@@ -22,7 +22,9 @@ class QuaStoreManager {
     if (!name) {
       throw new Error('Must specify the name of store.');
     }
-    QuaStoreManager.stores[name] = new QuaStore(opts.name, opts);
+    const newStore = new QuaStore(opts.name, opts);
+    QuaStoreManager.stores[name] = newStore;
+    return newStore;
   }
   public static getStore(name: string) {
     return useStore(name);
