@@ -1,6 +1,6 @@
 {
   "name": "quastore",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Persistent browser-side state management module.",
   "main": "dist/quastore.umd.js",
   "module": "dist/quastore.esm.js",
