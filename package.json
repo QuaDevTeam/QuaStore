@@ -1,5 +1,5 @@
 {
-  "name": "quastore",
+  "name": "@quajs/store",
   "version": "0.0.4",
   "description": "Persistent browser-side state management module.",
   "main": "dist/quastore.umd.js",
