@@ -17,7 +17,7 @@ This package was developed primarily for the needs of QuaEngine, but it also sup
 Step 1: Install this package from `npm`.
 
 ```bash
-npm i quastore -S
+npm i @quajs/store -S
 ```
 
 Step 2: Create store.
@@ -39,7 +39,7 @@ QuaStoreManager.createStore({
 Step 3: Use store at anywhere.
 
 ```js
-import { useStore } from 'quastore';
+import { useStore } from '@quajs/store';
 const store = useStore('my-store');
 // or
 const store = QuaManager.getStore('my-store');
