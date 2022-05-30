@@ -17,6 +17,10 @@ export interface QSConstructorOpts {
 
 export interface QSDbItem {
   key: string;
-  slot: number;
+  slot: string;
   payload: string;
+}
+
+export interface QSRestoreOptions {
+  force?: boolean;
 }

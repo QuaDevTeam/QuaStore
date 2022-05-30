@@ -9,6 +9,7 @@ class QuaStore {
   private mutations: QSMutations;
   private actions: QSActions;
   private innerGetters: QSGetters;
+  private initialState: QSState;
 
   public constructor(key: string, options: QSConstructorOpts) {
     this.key = key;
@@ -17,9 +18,11 @@ class QuaStore {
     this.actions = options.actions || {};
     this.mutations = options.mutations || {};
     this.innerGetters = options.getters || {};
+    this.initialState = options.state;
 
     const thisKey = this.key;
     const thisState = this.state;
+
     this.getters = new Proxy<QSGetters>(this.innerGetters, {
       get: async function (target, prop, receiver) {
         const key = prop as string;
@@ -54,18 +57,27 @@ class QuaStore {
     );
   }
 
-  public async persist(slot: number) {
+  public async persist(slot: number | string = 1) {
+    if (typeof slot === 'number' && slot <= 0) {
+      throw new TypeError('If slot is a number, it cannot be smaller than 1');
+    }
     await db.store.put({
       key: this.key,
-      slot,
+      slot: `s_${slot}`,
       payload: JSON.stringify(this.state),
     });
   }
 
-  public async restore(slot: number) {
+  public async restore(slot: number | string = 1, { force = false } = {}) {
+    if (typeof slot === 'number' && slot <= 0) {
+      throw new TypeError('If slot is a number, it cannot be smaller than 1');
+    }
+    if (Object.keys(this.state).length && !force) {
+      throw new Error('Cannot restore data from database due to some data was already set in store.');
+    }
     const stored = await db.store.get({
       key: this.key,
-      slot,
+      slot: `s_${slot}`,
     });
     if (!stored) {
       return null;
@@ -74,6 +86,10 @@ class QuaStore {
       this.state = JSON.parse(stored.payload);
     }
     return this;
+  }
+
+  public reset() {
+    this.state = this.initialState || {};
   }
 }
 

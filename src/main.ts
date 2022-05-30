@@ -1,5 +1,5 @@
 import QuaStore from './lib/store';
-import QuaStoreManager, { useStore } from './lib/manager';
+import QuaStoreManager, { useStore, dispatch, commit } from './lib/manager';
 
 interface ExtendedWindow extends Window {
   QuaStoreManager?: QuaStoreManager;
@@ -11,4 +11,4 @@ if (!exWindow.QuaStoreManager) {
   exWindow.QuaStoreManager = new QuaStoreManager();
 }
 
-export { QuaStore, QuaStoreManager, useStore };
+export { QuaStore, QuaStoreManager, useStore, dispatch, commit };
